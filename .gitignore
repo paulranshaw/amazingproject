@@ -1,0 +1,14 @@
+.gradle
+.idea
+bin
+ *.launch
+ .settings
+ .metadata
+ .classpath
+ .project
+build
+changelog.txt
+eclipse
+run
+
+
