@@ -23,10 +23,14 @@ Required accounts and software:
 
 1. Download and install [Git (Windows)](https://git-scm.com/download/win) [Git (MacOS)](https://git-scm.com/download/mac)
 2. Create a [Oracle account](https://profile.oracle.com/myprofile/account/create-account.jspx)
-3. Download and install [Java SE 17 Development Kit 17.0.6](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-4. Apply for an [education license for IntelliJ IDEA](https://www.jetbrains.com/shop/eform/students)
-5. Download and install [IntelliJ IDEA](https://www.jetbrains.com/idea/) and then sign in to activate the product as Ultimate edition.
-6. Create a [GitHub account](https://github.com/signup) then send Paul your username to be added as a collaborator.
+3. Download and install [Java SE Runtime Environment 8u202](https://www.oracle.com/uk/java/technologies/javase/javase8-archive-downloads.html)
+   * Type `Edit the system environment variables into the Windows search bar`
+   * Select `Environment Variables`
+   * Select `JAVA_HOME` under `Variable` and set to `C:\ProgramFiles\Java\jre1.8.0_202` if you installed the above in the default location.
+4. Download and install [Java SE 17 Development Kit 17.0.6](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+5. Apply for an [education license for IntelliJ IDEA](https://www.jetbrains.com/shop/eform/students)
+6. Download and install [IntelliJ IDEA](https://www.jetbrains.com/idea/) and then sign in to activate the product as Ultimate edition.
+7. Create a [GitHub account](https://github.com/signup) then send Paul your username to be added as a collaborator.
 
 Cloning the repository and setting up your development environment:
 
