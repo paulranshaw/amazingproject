@@ -1,5 +1,6 @@
 package com.github.paulranshaw.amazingproject.commands;
 
+import com.github.paulranshaw.amazingproject.MazeGen;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,19 +54,38 @@ public class Gen extends CommandBase {
      */
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-        /* Set the position of the block to be placed, this position is preset for a specific
-         * world which the command has been tested within instead of near to the player in
-         * any world
+        /* Set the position of the block to be placed, this position is slightly east of the players location
+        so that the maze doesn't generate on top of them
          */
-        BlockPos pos = new BlockPos(-128, 70, 260);
+        BlockPos pos = sender.getPosition();
+        pos = pos.add(3,0,0);
         // Check that the command sender is a player and not other instance
+
         if (sender instanceof EntityPlayer) {
             // Grab the world which the player is currently within
             World world = sender.getEntityWorld();
-            /* Change the block state of the block at the BlockPos to be the following
-               which can have additional properties
+            //generate maze from MazeGen class
+            int[][] maze = MazeGen.getMaze();
+            int rows = maze.length;
+            int columns = maze[0].length;
+            //
+            /*iterates across the maze, changing the block state at that position to stone
+            if it is a wall, or empty if it is a room. Maze is currently 2 blocks high.
              */
-            world.setBlockState(pos, Blocks.BEDROCK.getDefaultState());
+            for (int i=0;i<rows;i++){
+                for (int j=0;j<columns;j++){
+                    if (maze[i][j]==0){
+                        world.setBlockState(pos.add(i,0,j), Blocks.STONEBRICK.getDefaultState());
+                        world.setBlockState(pos.add(i,1,j), Blocks.STONEBRICK.getDefaultState());
+                    }
+                    else if (maze[i][j]==1){
+                        world.setBlockState(pos.add(i,0,j), Blocks.AIR.getDefaultState());
+                        world.setBlockState(pos.add(i,1,j), Blocks.AIR.getDefaultState());
+                    }
+                    //adds a floor to the maze
+                    world.setBlockState(pos.add(i,-1,j), Blocks.STONE.getDefaultState());
+                }
+            }
         }
     }
 }
