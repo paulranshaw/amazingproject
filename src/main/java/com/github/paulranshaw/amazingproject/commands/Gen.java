@@ -54,36 +54,42 @@ public class Gen extends CommandBase {
      */
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-        /* Set the position of the block to be placed, this position is slightly east of the players location
-        so that the maze doesn't generate on top of them
-         */
-        BlockPos pos = sender.getPosition();
-        pos = pos.add(3,0,0);
-        // Check that the command sender is a player and not other instance
+        // Take rows and columns arguments for use within generation
+        int rows = Integer.parseInt(args[0]);
+        int columns = Integer.parseInt(args[1]);
 
-        if (sender instanceof EntityPlayer) {
-            // Grab the world which the player is currently within
-            World world = sender.getEntityWorld();
-            //generate maze from MazeGen class
-            int[][] maze = MazeGen.getMaze();
-            int rows = maze.length;
-            int columns = maze[0].length;
-            //
-            /*iterates across the maze, changing the block state at that position to stone
-            if it is a wall, or empty if it is a room. Maze is currently 2 blocks high.
+        // Try and catch to go here
+
+        // Validate as being natural
+        if (rows > 0 && columns > 0) {
+            /* Set the position of the block to be placed, this position is slightly east of the players location
+            so that the maze doesn't generate on top of them
              */
-            for (int i=0;i<rows;i++){
-                for (int j=0;j<columns;j++){
-                    if (maze[i][j]==0){
-                        world.setBlockState(pos.add(i,0,j), Blocks.STONEBRICK.getDefaultState());
-                        world.setBlockState(pos.add(i,1,j), Blocks.STONEBRICK.getDefaultState());
+            BlockPos pos = sender.getPosition();
+            pos = pos.add(3, 0, 0);
+            // Check that the command sender is a player and not other instance
+            if (sender instanceof EntityPlayer) {
+                // Grab the world which the player is currently within
+                World world = sender.getEntityWorld();
+                // Generate maze from MazeGen class, pass rows and columns from args
+                int[][] maze = MazeGen.getMaze(rows, columns);
+                /* Iterates across the maze, changing the block state at that position to stone
+                if it is a wall, or empty if it is a room. Maze is currently 2 blocks high.
+                 */
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < columns; j++) {
+                        if (maze[i][j] == 0) {
+                            // Set as stone brick as wall
+                            world.setBlockState(pos.add(i, 0, j), Blocks.STONEBRICK.getDefaultState());
+                            world.setBlockState(pos.add(i, 1, j), Blocks.STONEBRICK.getDefaultState());
+                        } else if (maze[i][j] == 1) {
+                            // Set as air block so room can be explored
+                            world.setBlockState(pos.add(i, 0, j), Blocks.AIR.getDefaultState());
+                            world.setBlockState(pos.add(i, 1, j), Blocks.AIR.getDefaultState());
+                        }
+                        // Adds a floor to the maze
+                        world.setBlockState(pos.add(i, -1, j), Blocks.STONE.getDefaultState());
                     }
-                    else if (maze[i][j]==1){
-                        world.setBlockState(pos.add(i,0,j), Blocks.AIR.getDefaultState());
-                        world.setBlockState(pos.add(i,1,j), Blocks.AIR.getDefaultState());
-                    }
-                    //adds a floor to the maze
-                    world.setBlockState(pos.add(i,-1,j), Blocks.STONE.getDefaultState());
                 }
             }
         }
