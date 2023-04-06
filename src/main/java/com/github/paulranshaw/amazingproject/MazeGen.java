@@ -9,20 +9,6 @@ public class MazeGen {
     static int wall = 0;
     static int[][] maze;
 
-    // Is this needed?
-    /**
-     * Method for creating maze from given params
-     *
-     * @param columns as columns for the maze
-     * @param rows as the rows for the maze
-     * @return populated 2D maze array
-     */
-    public static int[][] getMaze(int rows, int columns) {
-        // Possibly redundant?
-        int[][] freshMaze = createMaze(rows, columns);
-        return freshMaze;
-    }
-
     /**
      * Method for creating maze from given params
      *
