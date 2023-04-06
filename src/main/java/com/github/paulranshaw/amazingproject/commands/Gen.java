@@ -60,8 +60,8 @@ public class Gen extends CommandBase {
 
         // Try and catch to go here
 
-        // Validate as being natural
-        if (rows > 0 && columns > 0) {
+        // Validate as being natural and params being odd
+        if ((rows > 0 && columns > 0) && (rows % 2 != 0 && columns % 2 != 0)) {
             /* Set the position of the block to be placed, this position is slightly east of the players location
             so that the maze doesn't generate on top of them
              */
