@@ -72,7 +72,7 @@ public class Gen extends CommandBase {
                 // Grab the world which the player is currently within
                 World world = sender.getEntityWorld();
                 // Generate maze from MazeGen class, pass rows and columns from args
-                int[][] maze = MazeGen.getMaze(rows, columns);
+                int[][] maze = MazeGen.createMaze(rows, columns);
                 /* Iterates across the maze, changing the block state at that position to stone
                 if it is a wall, or empty if it is a room. Maze is currently 2 blocks high.
                  */
