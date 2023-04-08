@@ -1,5 +1,6 @@
 package com.github.paulranshaw.amazingproject;
 
+
 /**
  * Class containing methods to handle maze generation
  */
@@ -16,7 +17,7 @@ public class MazeGen {
      * @param rows as the rows for the maze
      * @return populated 2D maze array
      */
-    public static int[][] createMaze(int rows, int columns) {
+    public static int[][] createMaze(int rows, int columns){
         maze = new int[rows][columns];
         // Counters for walls and rooms
         int emptyCounter = 0;
