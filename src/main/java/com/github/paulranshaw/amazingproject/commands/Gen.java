@@ -1,6 +1,7 @@
 package com.github.paulranshaw.amazingproject.commands;
 
 import com.github.paulranshaw.amazingproject.MazeGen;
+import joptsimple.internal.Strings;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,6 +10,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.config.GuiConfigEntries;
 
 /**
  * Class for /gen command functionality
@@ -91,6 +93,7 @@ public class Gen extends CommandBase {
             if it is a wall, or empty if it is a room. Maze is currently 2 blocks high.
              */
                     for (int i = 0; i < rows; i++) {
+                        sender.sendMessage(new TextComponentString("Generating: "+MakeProgressBar((float) (i+1),(float) rows)));
                         for (int j = 0; j < columns; j++) {
                             if (maze[i][j] == 0) {
                                 // Set as stone brick as wall
@@ -107,10 +110,19 @@ public class Gen extends CommandBase {
                     }
                 }
             }
+            else{
+                sender.sendMessage(new TextComponentString("This command needs to be in format /gen x y where x and y are odd numbers"));
+            }
         }
         catch (Exception e){
             sender.sendMessage(new TextComponentString("This command needs to be in format /gen x y where x and y are odd numbers"));
 
         }
+    }
+    public String MakeProgressBar(float current,float max){
+        float percent=current/max;
+        int progressbar=(int) (100*percent);
+
+        return "§2"+Strings.repeat('|',progressbar)+"§7"+Strings.repeat('|',100-progressbar);
     }
 }
