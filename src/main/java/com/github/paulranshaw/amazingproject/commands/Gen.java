@@ -1,6 +1,8 @@
 package com.github.paulranshaw.amazingproject.commands;
 
 import com.github.paulranshaw.amazingproject.MazeGen;
+import com.github.paulranshaw.amazingproject.MazeSolve;
+import com.github.paulranshaw.amazingproject.SaveArray;
 import joptsimple.internal.Strings;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -10,6 +12,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import net.minecraftforge.fml.client.config.GuiConfigEntries;
 
 /**
@@ -108,6 +115,10 @@ public class Gen extends CommandBase {
                             world.setBlockState(pos.add(i, -1, j), Blocks.STONE.getDefaultState());
                         }
                     }
+
+                    int[][] solvedMaze = MazeSolve.solveMaze(maze,rows,columns);
+                    Solve.playerPos = pos;
+
                 }
             }
             else{
