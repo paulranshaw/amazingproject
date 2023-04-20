@@ -9,16 +9,25 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
+/*
+ * README NOTICE
+ *
+ * The following reference has been used as guidance for completing the mathematical
+ * aspect of maze manipulation, any interaction with Minecraft itself and Forge we have
+ * implemented from scratch ourselves.
+ *
+ * OpenGenus IQ: Computing Expertise & Legacy. (2023). Maze Generator and Solver in Java. [online] Available at: https://iq.opengenus.org/maze-generator-in-java/ [Accessed 20 Apr. 2023].
+ */
+
 /**
- * Class for /gen command functionality
+ * Class for /solve command functionality
  */
 public class Solve extends CommandBase {
-
-
+    public static BlockPos playerPos;
     public static int[][] maze;
     public static int col;
     public static int row;
-    public static BlockPos playerPos;
+
     /**
      * Returns the name of the command
      *
@@ -52,46 +61,51 @@ public class Solve extends CommandBase {
 
     /**
      * Makes permission of the user to be true
-     * @param server
-     * @param sender
+     *
+     * @param server as server instance the sender is within
+     * @param sender as sender executing the command
      * @return allows command to be usable by all users
      */
     @Override
-    public boolean checkPermission(MinecraftServer server, ICommandSender sender){
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
         return true;
     }
+
     /**
-     * Executes command functionality, in this case placing a block at
-     * a preset position for testing purposes
+     * Executes command functionality, in this case iterating through the maze array which contains a path
+     * to goal state and then printing this path into the game world
      *
      * @param server as the game server
      * @param sender as the instance that has tried executing the command
      * @param args as any arguments which may have been passed into the command
      */
-
-
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args){
         int[][] maze1 = maze;
         int rows = row;
         int cols = col;
         World world = sender.getEntityWorld();
-
         for (int i = 0; i < rows; i++) {
-            sender.sendMessage(new TextComponentString("Generating: "+MakeProgressBar((float) (i+1),(float) rows)));
+            sender.sendMessage(new TextComponentString("Solving: "+makeProgressBar((float) (i+1),(float) rows)));
             for (int j = 0; j < cols; j++) {
                 if (maze1[i][j] == 3) {
-                    // Set as stone brick as wall
+                    // Place Redstone onto floor of maze to show the user path to goal state
                     world.setBlockState(playerPos.add(i, 0, j), Blocks.REDSTONE_WIRE.getDefaultState());
                 }
             }
         }
-
     }
-    public String MakeProgressBar(float current,float max){
-        float percent=current/max;
-        int progressbar=(int) (100*percent);
 
-        return "§2"+Strings.repeat('|',progressbar)+"§7"+Strings.repeat('|',100-progressbar);
+    /**
+     * Method to output progress as string in chat whilst generation ongoing
+     *
+     * @param current as current item
+     * @param max as goal item
+     * @return string progress bar
+     */
+    public String makeProgressBar(float current, float max) {
+        float percent = current / max;
+        int progressbar = (int) (100 * percent);
+        return "§2" + Strings.repeat('|', progressbar) + "§7" + Strings.repeat('|', 100 - progressbar);
     }
 }
