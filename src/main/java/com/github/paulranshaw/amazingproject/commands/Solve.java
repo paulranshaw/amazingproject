@@ -1,27 +1,20 @@
 package com.github.paulranshaw.amazingproject.commands;
 
-import com.github.paulranshaw.amazingproject.MazeGen;
-import com.github.paulranshaw.amazingproject.SaveArray;
 import joptsimple.internal.Strings;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
-import java.io.*;
-import java.util.ArrayList;
-import net.minecraftforge.fml.client.config.GuiConfigEntries;
-
 /**
  * Class for /gen command functionality
  */
 public class Solve extends CommandBase {
 
-    SaveArray savedObject;
+
     public static int[][] maze;
     public static int col;
     public static int row;
