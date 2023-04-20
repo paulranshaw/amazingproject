@@ -1,6 +1,5 @@
 package com.github.paulranshaw.amazingproject;
 
-
 /**
  * Class containing methods to handle maze generation
  */
@@ -17,7 +16,7 @@ public class MazeGen {
      * @param rows as the rows for the maze
      * @return populated 2D maze array
      */
-    public static int[][] createMaze(int rows, int columns){
+    public static int[][] createMaze(int rows, int columns) {
         maze = new int[rows][columns];
         // Counters for walls and rooms
         int emptyCounter = 0;
@@ -32,8 +31,8 @@ public class MazeGen {
             }
         }
         // Make a grid of empty rooms with walls between and give each room a unique negative ID using emptyCounter
-        for (int i=1; i < rows - 1; i=i + 2){
-            for (int j=1; j < columns - 1; j=j + 2){
+        for (int i=1; i < rows - 1; i=i + 2) {
+            for (int j=1; j < columns - 1; j=j + 2) {
                 emptyCounter = emptyCounter + 1;
                 maze[i][j] = -emptyCounter;
                 // Record info about the walls to the right of and below this room
@@ -50,15 +49,15 @@ public class MazeGen {
             }
         }
         // Remove walls randomly unless doing so would create a loop
-        for (int i=wallCounter - 1; i > 0; i--){
+        for (int i=wallCounter - 1; i > 0; i--) {
             int randomInt = (int)(Math.random() * i);
             removeWall(wallRow[randomInt], wallCol[randomInt]);
             wallRow[randomInt] = wallRow[i];
             wallCol[randomInt] = wallCol[i];
             }
         // Replace negative values in the maze with empty
-        for (int i=1; i < rows - 1; i++){
-            for (int j=1; j < columns - 1; j++){
+        for (int i=1; i < rows - 1; i++) {
+            for (int j=1; j < columns - 1; j++) {
                 if (maze[i][j] < 0){
                     maze[i][j] = room;
                 }
@@ -73,15 +72,15 @@ public class MazeGen {
      * @param row as number of rows
      * @param col as number of columns
      */
-    static synchronized void removeWall(int row, int col){
+    static synchronized void removeWall(int row, int col) {
         // Checks if the wall is horizontal and that rooms either side of the wall don't have the same code
-        if (row % 2 == 1 && maze[row][col - 1] != maze[row][col + 1]){
+        if (row % 2 == 1 && maze[row][col - 1] != maze[row][col + 1]) {
             // Replaces all wall codes with the new one and sets wall as part of the room
             swapRoomCodes(row, col - 1, maze[row][col - 1], maze[row][col+1]);
             maze[row][col] = maze[row][col+1];
         }
         // Same as above but for vertical rooms
-        else if (row%2==0 && maze[row-1][col] != maze[row+1][col]){
+        else if (row%2==0 && maze[row-1][col] != maze[row+1][col]) {
             swapRoomCodes(row-1,col, maze[row-1][col], maze[row+1][col]);
             maze[row][col] = maze[row+1][col];
         }
@@ -96,7 +95,7 @@ public class MazeGen {
      * @param replaceWith as ReplaceWith
      */
     private static void swapRoomCodes(int row, int col, int toReplace, int replaceWith) {
-        if (maze[row][col] == toReplace){
+        if (maze[row][col] == toReplace) {
             maze[row][col] = replaceWith;
             swapRoomCodes(row + 1,col, toReplace, replaceWith);
             swapRoomCodes(row - 1,col, toReplace, replaceWith);

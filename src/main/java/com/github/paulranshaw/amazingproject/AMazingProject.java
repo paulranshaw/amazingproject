@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 // import org.apache.logging.log4j.Logger;
 
-
 /**
  * Main class for handling the loading of the modification
  * and registering of commands
