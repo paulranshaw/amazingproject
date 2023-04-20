@@ -2,7 +2,6 @@ package com.github.paulranshaw.amazingproject.commands;
 
 import com.github.paulranshaw.amazingproject.MazeGen;
 import com.github.paulranshaw.amazingproject.MazeSolve;
-import com.github.paulranshaw.amazingproject.SaveArray;
 import joptsimple.internal.Strings;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -12,12 +11,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import net.minecraftforge.fml.client.config.GuiConfigEntries;
 
 /**
  * Class for /gen command functionality
@@ -115,7 +108,44 @@ public class Gen extends CommandBase {
                             world.setBlockState(pos.add(i, -1, j), Blocks.STONE.getDefaultState());
                         }
                     }
+                    // opens the start of the maze
+                    world.setBlockState(pos.add(0, 1, 1), Blocks.AIR.getDefaultState());
+                    world.setBlockState(pos.add(0, 0, 1), Blocks.AIR.getDefaultState());
 
+                    // opens the end of the maze
+                    world.setBlockState(pos.add(rows-1,1, columns-2), Blocks.AIR.getDefaultState());
+                    world.setBlockState(pos.add(rows-1, 0, columns-2), Blocks.AIR.getDefaultState());
+
+                    //adds short tunnel to the end of the maze
+                    for(int i = 0;i<3;i++){
+                        world.setBlockState(pos.add(rows+i, 1, columns-1), Blocks.STONEBRICK.getDefaultState());
+                        world.setBlockState(pos.add(rows+i, 0, columns-1), Blocks.STONEBRICK.getDefaultState());
+                        world.setBlockState(pos.add(rows+i, 1, columns-3), Blocks.STONEBRICK.getDefaultState());
+                        world.setBlockState(pos.add(rows+i, 0, columns-3), Blocks.STONEBRICK.getDefaultState());
+                        world.setBlockState(pos.add(rows+i, -1, columns-2), Blocks.STONE.getDefaultState());
+                    }
+
+                    //builds small prize room
+                    BlockPos tempPos = pos.add(rows+3,0,columns-4);
+                    for(int i = 0;i<=5;i++){
+                        for(int j = 0;j<=5;j++){
+                            world.setBlockState(tempPos.add(i, -1, j), Blocks.STONE.getDefaultState());
+                            if (i==0||i==5||j==0||j==5){
+                                world.setBlockState(tempPos.add(i, 0, j), Blocks.STONEBRICK.getDefaultState());
+                                world.setBlockState(tempPos.add(i, 1, j), Blocks.STONEBRICK.getDefaultState());
+                            }
+                            if ((i==1||i==4)&&(j==1||j==4)){
+                                world.setBlockState(tempPos.add(i, 0, j), Blocks.GOLD_BLOCK.getDefaultState());
+                                world.setBlockState(tempPos.add(i, 1, j), Blocks.GOLD_BLOCK.getDefaultState());
+                            }
+                        }
+                    }
+                    //opens the prize room
+                    world.setBlockState(tempPos.add(0,1, 2), Blocks.AIR.getDefaultState());
+                    world.setBlockState(tempPos.add(0, 0, 2), Blocks.AIR.getDefaultState());
+
+
+                    // calls the MazeSolve class to solve the maze and stores maze position in Solve class
                     int[][] solvedMaze = MazeSolve.solveMaze(maze,rows,columns);
                     Solve.playerPos = pos;
 

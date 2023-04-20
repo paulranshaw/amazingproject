@@ -17,7 +17,7 @@ public class MazeSolve {
         cols = col;
         solveRecurse(1,1);
         try {
-            sleep(5000);
+            sleep(3000);
         }catch (InterruptedException e){
         }
         Solve.maze = maze;
@@ -27,17 +27,17 @@ public class MazeSolve {
     }
     public static boolean solveRecurse(int row, int col){
         if (maze[row][col] == ROOM) {
-            maze[row][col] = PATH; // add this cell to the path
+            maze[row][col] = PATH;
             if (row == rows - 2 && col == cols - 2)
-                return true; // path has reached goal
+                return true;
 
-            if (solveRecurse(row - 1, col) || // try to solve maze by extending path
-                    solveRecurse(row, col - 1) || // in each possible direction
+            if (solveRecurse(row - 1, col) ||
+                    solveRecurse(row, col - 1) ||
                     solveRecurse(row + 1, col) ||
                     solveRecurse(row, col + 1))
                 return true;
-            // maze can't be solved from this cell, so backtrack out of the cell
-            maze[row][col] = VISITED; // mark cell as having been visited
+
+            maze[row][col] = VISITED;
 
 
         }
