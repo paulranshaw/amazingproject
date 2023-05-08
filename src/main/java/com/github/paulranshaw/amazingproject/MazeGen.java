@@ -1,5 +1,15 @@
 package com.github.paulranshaw.amazingproject;
 
+/*
+ * README NOTICE
+ *
+ * The following reference has been used as guidance for completing the mathematical
+ * aspect of maze manipulation, any interaction with Minecraft itself and Forge we have
+ * implemented from scratch ourselves.
+ *
+ * OpenGenus IQ: Computing Expertise & Legacy. (2023). Maze Generator and Solver in Java. [online] Available at: https://iq.opengenus.org/maze-generator-in-java/ [Accessed 02 Apr. 2023].
+ */
+
 /**
  * Class containing methods to handle maze generation
  */

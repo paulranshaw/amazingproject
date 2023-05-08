@@ -3,6 +3,16 @@ package com.github.paulranshaw.amazingproject;
 import com.github.paulranshaw.amazingproject.commands.Solve;
 import static java.lang.Thread.sleep;
 
+/*
+ * README NOTICE
+ *
+ * The following reference has been used as guidance for completing the mathematical
+ * aspect of maze manipulation, any interaction with Minecraft itself and Forge we have
+ * implemented from scratch ourselves.
+ *
+ * OpenGenus IQ: Computing Expertise & Legacy. (2023). Maze Generator and Solver in Java. [online] Available at: https://iq.opengenus.org/maze-generator-in-java/ [Accessed 20 Apr. 2023].
+ */
+
 public class MazeSolve {
     static int[][] maze;
     static int rows;
