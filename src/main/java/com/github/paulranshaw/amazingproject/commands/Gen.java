@@ -1,6 +1,5 @@
 package com.github.paulranshaw.amazingproject.commands;
 
-import com.github.paulranshaw.amazingproject.commands.AI;
 import com.github.paulranshaw.amazingproject.MazeGen;
 import com.github.paulranshaw.amazingproject.MazeSolve;
 import joptsimple.internal.Strings;
@@ -91,14 +90,12 @@ public class Gen extends CommandBase {
                  */
                 BlockPos pos = sender.getPosition();
                 pos = pos.add(3, 0, 0);
-                AI.pos = pos;
                 // Check that the command sender is a player and not other instance
                 if (sender instanceof EntityPlayer) {
                     // Grab the world which the player is currently within
                     World world = sender.getEntityWorld();
                     // Generate maze from MazeGen class, pass rows and columns from args
                     int[][] maze = MazeGen.createMaze(rows, columns);
-                    AI.maze = maze;
                     /* Iterates across the maze, changing the block state at that position to stone
                     if it is a wall, or empty if it is a room. Maze is currently 2 blocks high.
                      */

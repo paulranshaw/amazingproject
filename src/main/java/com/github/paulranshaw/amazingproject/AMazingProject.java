@@ -1,6 +1,5 @@
 package com.github.paulranshaw.amazingproject;
 
-import com.github.paulranshaw.amazingproject.commands.AI;
 import com.github.paulranshaw.amazingproject.commands.Gen;
 import com.github.paulranshaw.amazingproject.commands.Solve;
 import net.minecraftforge.fml.common.Mod;
@@ -53,7 +52,6 @@ public class AMazingProject {
     @EventHandler
     public void serverStart(FMLServerStartingEvent event) {
         // Register gen command to enable usage
-        event.registerServerCommand(new AI());
         event.registerServerCommand(new Gen());
         event.registerServerCommand(new Solve());
     }
